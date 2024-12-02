@@ -10,7 +10,6 @@
     </bean>
 
     <bean id="myCar" class="car.example.constructor.injection.Car">
-
 <!-- constructor-arg is used for constructor injection make sure it matched the dependency id-->
         <constructor-arg ref="carSpecification"/>
     </bean>

@@ -1,7 +1,6 @@
-package com.loose.coupling;
+package com.ioc.coupling;
 
 public class UserManager {
-
     private UserDataProvider userDataProvider;
 
     public UserManager(UserDataProvider userDataProvider) {
