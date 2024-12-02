@@ -3,4 +3,5 @@
 3. ioc coupling
 4. autowiring
      1. by name  -> Injection happens with the help of setters
-     2. by
+     2. byType
+     3. byConstructor
