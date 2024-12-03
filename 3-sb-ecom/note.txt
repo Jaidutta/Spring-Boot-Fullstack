@@ -2,3 +2,4 @@
 2. Category Mode
 3. getAllCategories
 4. createCategory
+5. setting up CategoryService 
