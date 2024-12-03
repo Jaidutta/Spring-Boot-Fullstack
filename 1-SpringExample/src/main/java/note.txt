@@ -5,5 +5,5 @@
      1. by name  -> Injection happens with the help of setters
      2. byType
      3. byConstructor
-5. componentscan
-6. componentscan annotation
+5. componentscan --> componentscan.annotation
+6. componentscan annotation --> autowired.annotation
