@@ -6,4 +6,5 @@
      2. byType
      3. byConstructor
 5. componentscan --> componentscan.annotation
-6. componentscan annotation --> autowired.annotation
+6. autowired annotation --> autowired.annotation
+7. qualifier annotation
