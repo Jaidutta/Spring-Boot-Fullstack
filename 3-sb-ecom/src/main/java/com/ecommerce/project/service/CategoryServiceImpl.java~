@@ -47,7 +47,6 @@ public class CategoryServiceImpl implements CategoryService{
 
         if(optionalCategory.isPresent()) {
             Category existingCategory = optionalCategory.get();
-            // set the name of the existingCategory to the name that was sent from the client
             existingCategory.setCategoryName(category.getCategoryName());
             return existingCategory;
         }
