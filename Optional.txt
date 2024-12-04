@@ -1,0 +1,52 @@
+Optional is a container class in Java that can hold a non-null value or be empty. It's used to avoid NullPointerExceptions and make code more expressive.
+
+Think of it like a box that can either contain a value or be empty. You can use methods like isPresent(), get(), orElse(), and orElseThrow() to interact with the value inside the box.
+
+Here's a brief example:
+
+java
+CopyInsert
+Optional<String> optionalString = Optional.of("Hello"); // create an Optional with a value
+if (optionalString.isPresent()) {
+    System.out.println(optionalString.get()); // prints "Hello"
+}
+
+Optional<String> emptyOptional = Optional.empty(); // create an empty Optional
+System.out.println(emptyOptional.orElse("Default value")); // prints "Default value"
+In the context of the original code snippet, findFirst() returns an Optional because it might not find a match. The orElseThrow() method is then used to handle the case where no match is found, by throwing an exception.
+
+What do these each return: 
+isPresent(), get(), orElse(), and orElseThrow() 
+? 
+
+
+Here's what each of these methods returns:
+
+isPresent(): a boolean indicating whether the Optional contains a non-null value. Returns true if the value is present, false if it's empty.
+get(): the non-null value contained in the Optional. If the Optional is empty, it throws a NoSuchElementException.
+orElse(T other): the non-null value contained in the Optional, or the specified other value if the Optional is empty.
+orElseThrow(Supplier<? extends X> exceptionSupplier): the non-null value contained in the Optional, or throws the exception produced by the exceptionSupplier if the Optional is empty.
+In summary:
+
+isPresent() asks "Is there a value?"
+get() says "Give me the value!" (throws an exception if empty)
+orElse() says "Give me the value, or this default value if it's empty"
+orElseThrow() says "Give me the value, or throw this exception if it's empty"
+
+
+what is this supplier?
+
+
+In Java, a Supplier is a functional interface that represents a function that takes no arguments and returns a result.
+
+In the context of orElseThrow(), the Supplier is a function that produces an exception when the Optional is empty. It's a way to lazily create an exception only when it's needed, rather than creating it upfront.
+
+Think of it like a factory that creates an exception on demand. The Supplier is only invoked when the Optional is empty, and it returns the created exception, which is then thrown.
+
+Here's an example:
+
+java
+CopyInsert
+Optional<String> emptyOptional = Optional.empty();
+emptyOptional.orElseThrow(() -> new RuntimeException("Value not found"));
+In this case, the Supplier is a lambda expression that creates a RuntimeException with a message "Value not found". The exception is only created and thrown when the Optional is empty
