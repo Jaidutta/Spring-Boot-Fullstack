@@ -1,6 +1,8 @@
 package com.ecommerce.project.service;
 
 import com.ecommerce.project.model.Category;
+import com.ecommerce.project.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
@@ -12,22 +14,30 @@ import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
-    private List<Category> categories = new ArrayList<>();
+    // private List<Category> categories = new ArrayList<>();
     private Long nextId = 1L;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public List<Category> getAllCategories() {
-        return categories;
+        // return categories;
+        return categoryRepository.findAll();
     }
 
     @Override
     public void createCategory(Category category) {
-        category.setCategoryId(nextId++);
-        categories.add(category);
+        // category.setCategoryId(nextId++);    // without JPA
+        // categories.add(category);            // without JPA
+        categoryRepository.save(category);
     }
 
     @Override
     public String deleteCategory(Long categoryId) {
+        // Added when JPA was incorporated
+        List<Category> categories = categoryRepository.findAll();
+
         // There is another way to achieve this exact same thing: check updateCategory
         Category category = categories.stream()
                 .filter(c ->
@@ -35,12 +45,15 @@ public class CategoryServiceImpl implements CategoryService{
                 ).findFirst()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource Not found"));
 
-        categories.remove(category);
+        // categories.remove(category);  // without JPA
+        categoryRepository.delete(category);
         return "Category with categoryId:" + categoryId + " has been deleted successfully!!";
     }
 
     @Override
     public Category updateCategory(Category category, Long categoryId) {
+        // Add when JPA was incorporated
+        List<Category> categories = categoryRepository.findAll();
 
         Optional<Category> optionalCategory = categories.stream()
                 .filter(c -> c.getCategoryId().equals(categoryId)).findFirst();
@@ -49,7 +62,12 @@ public class CategoryServiceImpl implements CategoryService{
             Category existingCategory = optionalCategory.get();
             // set the name of the existingCategory to the name that was sent from the client
             existingCategory.setCategoryName(category.getCategoryName());
-            return existingCategory;
+
+            // added after incorporating JPA
+            Category savedCategory = categoryRepository.save(existingCategory);
+
+            // return existingCategory;
+            return savedCategory;
         }
         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource Not Found");
