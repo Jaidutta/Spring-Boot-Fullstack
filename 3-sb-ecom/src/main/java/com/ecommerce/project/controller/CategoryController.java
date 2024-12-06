@@ -2,6 +2,7 @@ package com.ecommerce.project.controller;
 
 import com.ecommerce.project.model.Category;
 import com.ecommerce.project.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,10 @@ public class CategoryController {
     }
 
     @PostMapping("api/public/categories")
-    public ResponseEntity<String> createCategory(@RequestBody Category category) {
+    public ResponseEntity<String> createCategory(@Valid @RequestBody Category category) {
+        // @Valid annotation is used to validate the request body and for a more user-friendly error message
+        // @Valid annotation in the controller is used in the controller method along with validation annotation in the model
+
         categoryService.createCategory(category);
         return new ResponseEntity<>("Category added successfully!!", HttpStatus.CREATED);
     }
