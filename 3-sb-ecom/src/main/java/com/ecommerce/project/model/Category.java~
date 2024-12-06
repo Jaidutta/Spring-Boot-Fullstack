@@ -22,8 +22,7 @@ public class Category {
        specification by JPA.
 
        It is also important to have the getters and setters for the fields so that we
-       get the values in the GET request. These fields inside the database will also be Null if getters and
-       setters are not added
+       get the values in the GET request
      */
     public Category() {
 
