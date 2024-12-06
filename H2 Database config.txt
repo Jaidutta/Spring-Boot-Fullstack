@@ -1,0 +1,26 @@
+spring.h2.console.enabled=true
+spring.datasource.url=jdbc:h2:mem:testdb
+
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+spring.jpa.properties.hibernate.ddl_auto=none  means no action is being performed
+
+spring.jpa.properties.hibernate.ddl_auto=update  means hibernat will change the database according to the entity structure
+here the schema is not being created everytime but only the changes are being propogated-- recreation won't happen
+
+spring.jpa.properties.hibernate.ddl_auto=create  means it would create the schema and it would destroy the previous data
+
+spring.jpa.properties.hibernate.ddl_auto=create-drop  means it would drop when the session factory is created
+here when the session factory is created the database is created and when the session is dropped, the database is dropped
+
+spring.jpa.properties.hibernate.ddl_auto=create-drop is the default configuration
+
+Difference between create and create-drop
+create: the schema is created everytime the application starts
+
+create-drop: when we start the application the schema is created and when we stop the application, the schema is also dropped
+with create-drop the schema exists only until the lifecycle of the application. Once the session is dropped the schema is also dropped
+
+
+

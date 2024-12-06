@@ -33,6 +33,8 @@ public class CategoryServiceImpl implements CategoryService{
         categoryRepository.save(category);
     }
 
+
+    /*
     @Override
     public String deleteCategory(Long categoryId) {
         // Added when JPA was incorporated
@@ -49,10 +51,24 @@ public class CategoryServiceImpl implements CategoryService{
         categoryRepository.delete(category);
         return "Category with categoryId:" + categoryId + " has been deleted successfully!!";
     }
+     */
 
+    // Optimized Version
+    @Override
+    public String deleteCategory(Long categoryId) {
+        Category savedCategory = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource Not found"));
+
+        categoryRepository.delete(savedCategory);
+        return "Category with categoryId:" + categoryId + " has been deleted successfully!!";
+    }
+
+
+    /*
+    JPA before code optimization
     @Override
     public Category updateCategory(Category category, Long categoryId) {
-        // Add when JPA was incorporated
+        // Added when JPA was incorporated
         List<Category> categories = categoryRepository.findAll();
 
         Optional<Category> optionalCategory = categories.stream()
@@ -72,6 +88,19 @@ public class CategoryServiceImpl implements CategoryService{
         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource Not Found");
         }
+    }
+    */
+
+
+    // Optimized Version
+    @Override
+    public Category updateCategory(Category category, Long categoryId) {
+        Category savedCategory = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource Not Found"));
+        category.setCategoryId(categoryId);
+        savedCategory = categoryRepository.save(category);
+        return savedCategory;
+
     }
 
 
