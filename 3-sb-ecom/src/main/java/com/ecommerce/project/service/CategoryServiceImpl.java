@@ -1,5 +1,6 @@
 package com.ecommerce.project.service;
 
+import com.ecommerce.project.exceptions.ResourceNotFoundException;
 import com.ecommerce.project.model.Category;
 import com.ecommerce.project.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,14 @@ public class CategoryServiceImpl implements CategoryService{
     // Optimized Version
     @Override
     public String deleteCategory(Long categoryId) {
+        /*
+        // BEFORE USING THE CUSTOM EXCEPTION
         Category savedCategory = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource Not found"));
+
+         */
+        Category savedCategory = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
 
         categoryRepository.delete(savedCategory);
         return "Category with categoryId:" + categoryId + " has been deleted successfully!!";
@@ -95,8 +102,14 @@ public class CategoryServiceImpl implements CategoryService{
     // Optimized Version
     @Override
     public Category updateCategory(Category category, Long categoryId) {
+        /*
+        // BEFORE USING THE CUSTOM EXCEPTION
         Category savedCategory = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resource Not Found"));
+
+         */
+        Category savedCategory = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "categoryId", categoryId));
         category.setCategoryId(categoryId);
         savedCategory = categoryRepository.save(category);
         return savedCategory;
