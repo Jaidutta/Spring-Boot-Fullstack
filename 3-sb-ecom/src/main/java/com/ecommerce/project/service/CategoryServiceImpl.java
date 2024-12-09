@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class CategoryServiceImpl implements CategoryService{
     // private List<Category> categories = new ArrayList<>();
-    private Long nextId = 1L;
+    // private Long nextId = 1L;  // when we were generating the ID's ourselves
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -71,6 +71,7 @@ public class CategoryServiceImpl implements CategoryService{
     }
      */
 
+
     // Optimized Version
     @Override
     public String deleteCategory(Long categoryId) {
@@ -114,6 +115,7 @@ public class CategoryServiceImpl implements CategoryService{
         }
     }
     */
+
 
 
     // Optimized Version
