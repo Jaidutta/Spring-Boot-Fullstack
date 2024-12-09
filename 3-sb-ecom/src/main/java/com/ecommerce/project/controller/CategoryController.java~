@@ -21,7 +21,7 @@ public class CategoryController {
     @GetMapping("api/public/categories")
     // @RequestMapping USE CASE
     // 1. At class level to shorten the common preceding URI
-    // 2. to define the url path and the method
+    // 2.
     //@RequestMapping(value = "api/public/categories", method = RequestMethod.GET)
     public ResponseEntity<List<Category>> getAllCategories() {
         List<Category> categories = categoryService.getAllCategories();
